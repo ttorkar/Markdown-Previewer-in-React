@@ -1,0 +1,50 @@
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markdown: ""
+    };
+  }
+
+  handleChange(event) {
+    this.setState({ markdown: event.target.value });
+  }
+
+  render() {
+    return (
+      <div style={{ border: "2px groove black", padding:"20px", borderRadius:"5px" }}>
+        <h1>Markdown Previewer in <b>React</b></h1>
+        <h4>Trent Torkar</h4>
+        <hr />
+        <br />
+        <div className="row">
+          <div className="col-md-6">
+            <h3 style={{ color: "blue" }}>Markdown Input</h3>
+
+            <textarea
+              onChange={() => this.handleChange(event)}
+              value={this.state.markdown}
+              rows="15"
+              style={{ width: "400" }}
+            />
+          </div>
+          <div className="col-md-6" style={{ borderLeft: "2px solid black" }}>
+            <h3 style={{ color: "blue", paddingLeft: "150" }}>
+              {" "}Markdown Preview
+              {" "}
+            </h3>
+            <div style={{ paddingLeft: "150" }}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked(this.state.markdown)
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector(".render-target"));
